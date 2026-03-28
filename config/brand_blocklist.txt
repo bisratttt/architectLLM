@@ -1,0 +1,25 @@
+netflix
+uber
+airbnb
+facebook
+meta
+google
+amazon
+twitter
+stripe
+discord
+spotify
+slack
+pinterest
+dropbox
+linkedin
+shopify
+figma
+doordash
+lyft
+etsy
+grab
+cloudflare
+github
+stackoverflow
+stack overflow

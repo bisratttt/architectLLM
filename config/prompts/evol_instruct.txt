@@ -1,0 +1,37 @@
+Given this system design primitive and its core lesson:
+
+Primitive: {primitive}
+Primitive description: {primitive_description}
+Lesson: {domain_independent_lesson}
+Original constraints: {constraints}
+
+Generate {count} system design questions that apply this SAME primitive to DIFFERENT domains. Each question should:
+- Describe a specific system in a specific domain (DO NOT name real companies)
+- Include concrete scale numbers (users, requests/sec, data volume)
+- Require the responder to apply the primitive while adapting to domain-specific constraints
+- Vary in complexity as specified below
+
+Generate questions for these domains: {domains}
+
+Complexity distribution:
+- 1 question of type "single_primitive": focused on this one primitive conceptually
+- {design_count} questions of type "full_system": requires this primitive plus others in a complete design
+- 1 question of type "cross_domain": asks how to adapt this pattern from one domain context to another
+- 1 question of type "tradeoff": asks to compare this primitive against an alternative approach
+- 1 question of type "failure": presents a system experiencing failures related to this primitive
+
+Apply these evolution strategies to make questions progressively harder:
+1. DEEPENING: Add constraints (latency requirements, regulatory compliance, cost targets)
+2. WIDENING: Combine with a second primitive to create multi-primitive challenges
+3. CONCRETIZING: Add specific numerical requirements ("10M DAU", "99.99% uptime", "50ms p99")
+
+Respond in JSON format:
+{
+  "questions": [
+    {
+      "domain": "string",
+      "question": "string",
+      "complexity": "single_primitive | full_system | cross_domain | tradeoff | failure"
+    }
+  ]
+}

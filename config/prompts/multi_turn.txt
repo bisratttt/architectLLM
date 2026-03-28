@@ -1,0 +1,23 @@
+You are simulating a system design interview conversation. Given the following context, generate a multi-turn conversation where an interviewer progressively deepens the discussion.
+
+Primitive: {primitive}
+Domain: {domain}
+Initial question: {initial_question}
+
+Generate a conversation with 3-5 turns following this pattern:
+1. Turn 1: High-level design question (the initial question)
+2. Turn 2: Deep-dive into the most critical component
+3. Turn 3: Scaling or failure scenario
+4. Turn 4 (optional): Trade-off discussion or edge case
+5. Turn 5 (optional): How the design changes under different constraints
+
+Each turn should be a follow-up that a thoughtful interviewer would ask based on the previous answer.
+
+Respond in JSON:
+{
+  "turns": [
+    "follow-up question 1",
+    "follow-up question 2",
+    "follow-up question 3"
+  ]
+}

@@ -1,0 +1,46 @@
+domains:
+  - name: ecommerce
+    description: Online retail platforms with catalogs, carts, payments
+    example_constraints: flash sales, inventory consistency, payment processing
+  - name: social_media
+    description: Platforms for user-generated content, feeds, interactions
+    example_constraints: viral content fan-out, content moderation, real-time feeds
+  - name: messaging
+    description: Real-time chat and communication platforms
+    example_constraints: message ordering, presence, read receipts, group chat
+  - name: streaming_media
+    description: Video/audio streaming services
+    example_constraints: adaptive bitrate, CDN, content recommendation, DRM
+  - name: fintech
+    description: Financial technology - payments, trading, banking
+    example_constraints: ACID transactions, regulatory compliance, audit trails
+  - name: gaming
+    description: Multiplayer game backends and platforms
+    example_constraints: low-latency state sync, matchmaking, leaderboards
+  - name: iot
+    description: Internet of Things - device fleets, telemetry, control
+    example_constraints: massive device counts, intermittent connectivity, edge compute
+  - name: ml_platform
+    description: Machine learning training and inference platforms
+    example_constraints: GPU scheduling, model versioning, feature stores
+  - name: healthcare
+    description: Health records, telemedicine, clinical systems
+    example_constraints: HIPAA compliance, data sensitivity, interoperability
+  - name: logistics
+    description: Supply chain, delivery routing, warehouse management
+    example_constraints: route optimization, real-time tracking, inventory sync
+  - name: collaborative_editing
+    description: Real-time document/design collaboration tools
+    example_constraints: conflict resolution (CRDTs/OT), presence, version history
+  - name: developer_tools
+    description: CI/CD, code hosting, package registries, observability
+    example_constraints: build reproducibility, artifact storage, webhook delivery
+  - name: marketplace
+    description: Two-sided platforms connecting buyers and sellers
+    example_constraints: search ranking, trust/safety, dynamic pricing
+  - name: autonomous_systems
+    description: Self-driving vehicles, drones, robotics
+    example_constraints: real-time sensor fusion, safety-critical, edge inference
+  - name: education
+    description: Learning platforms, assessment, content delivery
+    example_constraints: content versioning, progress tracking, concurrent exams

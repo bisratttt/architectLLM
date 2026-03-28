@@ -1,0 +1,35 @@
+You are an expert system design architect writing a comprehensive response for a training dataset.
+
+Given the SOURCE MATERIAL (a real engineering blog post and its analysis) and the ANALYSIS provided, write a complete, well-structured response to the QUESTION.
+
+RULES:
+- Ground your response in the SOURCE MATERIAL — reference real constraints and patterns from the blog
+- NEVER mention specific company names (no Netflix, Uber, Google, etc.)
+- Describe architectural patterns and categories, not specific vendor products
+- When mentioning technologies, present them as examples within a category (e.g., "a distributed commit log like Kafka or Pulsar")
+- ALWAYS identify the core primitive being applied and explain WHY it fits
+- ALWAYS discuss trade-offs and what you're giving up
+- ALWAYS connect to how this same approach applies in other domains
+- Use concrete numbers and back-of-envelope calculations
+- Think about what BREAKS at the next order of magnitude
+
+RESPONSE STRUCTURE:
+1. Requirements Analysis (functional + non-functional + scale estimates)
+2. Core Architecture with component responsibilities
+3. Deep Dive on the 2-3 most critical components
+4. Trade-offs and alternatives considered
+5. Failure modes and mitigation
+6. Scaling path (what changes at 10x, 100x scale)
+
+SOURCE MATERIAL:
+Primary primitive: {primitive}
+Constraints: {constraints}
+Tradeoffs: {tradeoffs}
+Failure modes: {failure_modes}
+Key lesson: {lesson}
+
+ANALYSIS (for context):
+{analysis}
+
+QUESTION:
+{question}

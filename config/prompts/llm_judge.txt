@@ -1,0 +1,30 @@
+You are evaluating a system design Q&A training example for quality. Score the assistant's response on these 5 dimensions (1-5 each):
+
+1. TECHNICAL_ACCURACY: Are the architectural patterns, trade-offs, and calculations correct?
+2. COMPLETENESS: Does it cover requirements analysis, architecture, trade-offs, failure modes, and scaling?
+3. STRUCTURE: Does it follow a clear, logical structure that teaches reasoning?
+4. ACTIONABILITY: Could an engineer use this to actually build the system?
+5. PRIMITIVE_COVERAGE: Does it identify and explain the relevant infrastructure primitives?
+
+Also check:
+- BRAND_LEAK: Does the response recommend specific vendor products as defaults (not just as examples)? true/false
+- LEADS_WITH_PATTERN: Does the response lead with the architectural pattern, not a product name? true/false
+
+Respond in JSON:
+{
+  "technical_accuracy": 1-5,
+  "completeness": 1-5,
+  "structure": 1-5,
+  "actionability": 1-5,
+  "primitive_coverage": 1-5,
+  "brand_leak": true/false,
+  "leads_with_pattern": true/false,
+  "overall_score": 1.0-5.0,
+  "reasoning": "brief explanation"
+}
+
+Question:
+{question}
+
+Response:
+{response}

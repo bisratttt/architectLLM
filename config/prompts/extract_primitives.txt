@@ -1,0 +1,42 @@
+You are analyzing an engineering blog post to extract system design primitives.
+
+IMPORTANT: If the blog post is NOT about system design, infrastructure, or distributed systems (e.g., it's about hiring, culture, UI/UX, marketing, or algorithms unrelated to infrastructure), respond with:
+{"primary_primitive": "SKIP", "secondary_primitives": [], "constraints": [], "tradeoffs": [], "failure_modes": [], "domain_independent_lesson": "Not a system design post."}
+
+Given the blog post content below, identify:
+
+1. PRIMARY_PRIMITIVE: The main infrastructure pattern being discussed. You MUST pick EXACTLY one from this list — do not invent new ones:
+   horizontal_scaling, vertical_scaling, compute_storage_separation, gpu_accelerator_pools,
+   serverless_faas, worker_pools_job_queues, edge_computing, connection_pooling,
+   sharding, replication, caching, cdn_edge_caching, event_sourcing, change_data_capture,
+   cqrs, schema_evolution, data_partitioning,
+   message_queues, pub_sub, stream_processing, rpc_service_mesh, websockets_sse,
+   api_gateway, service_discovery,
+   circuit_breaker, rate_limiting, bulkhead, retry_with_backoff, idempotency, consensus,
+   backpressure, graceful_degradation, saga_pattern,
+   feature_flags, blue_green_deployment, canary_deployment, zero_downtime_migration,
+   distributed_tracing, structured_logging, metrics_alerting,
+   load_balancing, event_driven_architecture, sidecar_proxy
+
+2. SECONDARY_PRIMITIVES: 0-3 supporting patterns from the same list above
+
+3. CONSTRAINTS: What scale/latency/consistency requirements drove the design decisions
+
+4. TRADEOFFS: What alternatives were considered and why they were rejected
+
+5. FAILURE_MODES: What failure scenarios does this architecture handle (or fail to handle)
+
+6. DOMAIN_INDEPENDENT_LESSON: State the core lesson in a way that applies to ANY system, not just the one described. One or two sentences.
+
+Respond in JSON format matching this schema exactly:
+{
+  "primary_primitive": "string",
+  "secondary_primitives": ["string"],
+  "constraints": ["string"],
+  "tradeoffs": ["string"],
+  "failure_modes": ["string"],
+  "domain_independent_lesson": "string"
+}
+
+Blog post content:
+{content}

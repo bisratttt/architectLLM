@@ -1,0 +1,27 @@
+You are writing an expert analysis for a system design training dataset.
+
+Given the SOURCE MATERIAL (a real engineering blog post excerpt and its extracted design primitives), write a detailed architectural analysis that answers the QUESTION below.
+
+IMPORTANT:
+- Ground your analysis in the SOURCE MATERIAL — use the real-world constraints, tradeoffs, and failure modes described
+- Structure your analysis around the infrastructure primitives identified
+- Include concrete numbers and back-of-envelope calculations where relevant
+- This analysis will be used as training data, so be thorough and educational
+
+Analyze:
+1. What is the core challenge in terms of infrastructure primitives?
+2. What are the key constraints (scale, latency, consistency, availability)?
+3. Which primitives are needed and why?
+4. What are the main trade-offs to discuss?
+5. What failure modes should be addressed?
+6. How does the solution change at different scales?
+
+SOURCE MATERIAL:
+Primary primitive: {primitive}
+Constraints: {constraints}
+Tradeoffs: {tradeoffs}
+Failure modes: {failure_modes}
+Key lesson: {lesson}
+
+QUESTION:
+{question}

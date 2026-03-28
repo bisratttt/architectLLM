@@ -1,0 +1,142 @@
+compute:
+  - name: horizontal_scaling
+    description: Handle more load by adding machines
+    top10: true
+  - name: vertical_scaling
+    description: Handle more load per machine
+    top10: false
+  - name: compute_storage_separation
+    description: Scale compute and storage independently
+    top10: false
+  - name: gpu_accelerator_pools
+    description: Specialized high-compute workloads
+    top10: false
+  - name: serverless_faas
+    description: Bursty unpredictable workloads with functions as a service
+    top10: false
+  - name: worker_pools_job_queues
+    description: Async processing at scale with backpressure
+    top10: false
+  - name: edge_computing
+    description: Processing data closer to the source to reduce latency
+    top10: false
+  - name: connection_pooling
+    description: Reuse expensive connections to databases and services
+    top10: false
+
+data:
+  - name: sharding
+    description: Dataset exceeds single-node capacity
+    top10: true
+  - name: replication
+    description: Availability and read scaling
+    top10: true
+  - name: caching
+    description: Reduce latency and backend load
+    top10: true
+  - name: cdn_edge_caching
+    description: Reduce latency for geographically distributed users
+    top10: false
+  - name: event_sourcing
+    description: Audit trail, temporal queries, replay
+    top10: false
+  - name: change_data_capture
+    description: Keep derived stores in sync
+    top10: false
+  - name: cqrs
+    description: Separate read and write models for different optimization
+    top10: false
+  - name: schema_evolution
+    description: Safely evolve data schemas without downtime
+    top10: false
+  - name: data_partitioning
+    description: Distribute data across nodes by key, range, or hash
+    top10: false
+
+communication:
+  - name: message_queues
+    description: Decouple producers and consumers
+    top10: true
+  - name: pub_sub
+    description: Fan-out to multiple consumers
+    top10: false
+  - name: stream_processing
+    description: Real-time transformations on event streams
+    top10: false
+  - name: rpc_service_mesh
+    description: Synchronous inter-service communication
+    top10: false
+  - name: websockets_sse
+    description: Real-time client push
+    top10: false
+  - name: api_gateway
+    description: Single entry point for routing, auth, and rate limiting across microservices
+    top10: false
+  - name: service_discovery
+    description: Dynamic lookup of service instances in distributed systems
+    top10: false
+
+reliability:
+  - name: circuit_breaker
+    description: Prevent cascade failures
+    top10: true
+  - name: rate_limiting
+    description: Protect services from overload
+    top10: true
+  - name: bulkhead
+    description: Isolate failures
+    top10: false
+  - name: retry_with_backoff
+    description: Handle transient failures with exponential backoff and jitter
+    top10: false
+  - name: idempotency
+    description: Safe retries for non-idempotent operations
+    top10: false
+  - name: consensus
+    description: Agreement in distributed systems via Raft, Paxos, leader election
+    top10: false
+  - name: backpressure
+    description: Flow control to prevent overwhelming downstream services
+    top10: false
+  - name: graceful_degradation
+    description: Maintain partial functionality when components fail
+    top10: false
+  - name: saga_pattern
+    description: Manage distributed transactions via compensating actions
+    top10: false
+
+deployment:
+  - name: feature_flags
+    description: Toggle features without deployments for gradual rollout and experimentation
+    top10: false
+  - name: blue_green_deployment
+    description: Zero-downtime deployments by switching between identical environments
+    top10: false
+  - name: canary_deployment
+    description: Gradual rollout to a subset of users to detect issues early
+    top10: false
+  - name: zero_downtime_migration
+    description: Migrate databases or services without user-facing downtime
+    top10: false
+
+observability:
+  - name: distributed_tracing
+    description: Debug cross-service requests
+    top10: false
+  - name: structured_logging
+    description: Searchable aggregatable logs
+    top10: false
+  - name: metrics_alerting
+    description: Detect and respond to issues with RED/USE methods and SLOs
+    top10: false
+
+cross_cutting:
+  - name: load_balancing
+    description: Distribute traffic across servers (L4/L7, consistent hashing)
+    top10: true
+  - name: event_driven_architecture
+    description: Loosely coupled systems communicating through events
+    top10: true
+  - name: sidecar_proxy
+    description: Attach auxiliary functionality to services without code changes
+    top10: false

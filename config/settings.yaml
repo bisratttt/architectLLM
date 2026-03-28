@@ -1,0 +1,59 @@
+# Switch between providers by changing these + the llm_client provider setting
+# Claude:  claude-sonnet-4-20250514 / claude-haiku-4-5-20251001
+# OpenAI:  gpt-4.1-mini / gpt-4.1-nano
+teacher_model: gpt-4.1-mini
+judge_model: gpt-4.1-nano
+provider: openai
+temperature:
+  phase1_extraction: 0.2
+  phase2_questions: 0.8
+  phase3_analysis: 0.3
+  phase3_response: 0.5
+  phase4_judge: 0.1
+
+rate_limit:
+  rpm: 500
+  tpm: 800000
+  concurrency: 10
+
+extraction:
+  min_word_count: 300
+  request_delay_seconds: 1.5
+  js_heavy_domains:
+    - medium.com
+    - netflixtechblog.com
+    - airbnb-engineering.medium.com
+    - substack.com
+
+generation:
+  evol_instruct_rounds: 2
+  domains_per_primitive: 5
+  questions_per_annotation: 8
+  target_total_questions: 8000
+
+use_llm_judge: true
+
+filtering:
+  min_response_tokens: 50
+  near_duplicate_threshold: 0.94
+  judge_score_threshold: 3.5
+
+composition:
+  total: 5000
+  single_primitive_pct: 0.30
+  full_system_pct: 0.25
+  cross_domain_pct: 0.20
+  tradeoff_pct: 0.10
+  failure_pct: 0.10
+  multi_turn_pct: 0.05
+
+validation:
+  min_domains_per_primitive: 4
+  min_examples_top10_primitives: 50
+  max_single_domain_pct: 0.25
+
+# Use claude-sonnet-4-20250514 for quality/cost balance as teacher.
+# Swap to claude-opus-4-20250514 for highest quality (4x cost).
+# Judge uses claude-haiku-4-5-20251001 (cheap, fast, good enough for scoring).
+
+data_dir: data
