@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>architectLLM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .header h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-size: 0.85rem;
+      color: #666;
+      font-weight: 300;
+    }
+
+    /* ── Tabs ── */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 48px;
+      border-bottom: 1px solid #1a1a1a;
+      padding-bottom: 0;
+    }
+
+    .tab {
+      background: none;
+      border: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #555;
+      padding: 12px 24px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
+      margin-bottom: -1px;
+    }
+
+    .tab:hover { color: #999; }
+
+    .tab.active {
+      color: #e0e0e0;
+      border-bottom-color: #e0e0e0;
+    }
+
+    /* ── Content ── */
+    .content { display: none; }
+    .content.active { display: block; }
+
+    /* ── Links ── */
+    a {
+      color: #7eb8da;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    a:hover { border-bottom-color: #7eb8da; }
+
+    .hf-link {
+      display: inline-block;
+      font-size: 0.85rem;
+      padding: 8px 16px;
+      border: 1px solid #2a2a2a;
+      border-radius: 4px;
+      margin-bottom: 36px;
+      transition: border-color 0.2s;
+    }
+
+    .hf-link:hover {
+      border-color: #7eb8da;
+      border-bottom-style: solid;
+    }
+
+    /* ── Sections ── */
+    .section { margin-bottom: 40px; }
+
+    .section h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .section h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #ccc;
+      margin-bottom: 12px;
+      margin-top: 28px;
+    }
+
+    .section p, .section li {
+      font-size: 0.82rem;
+      color: #b0b0b0;
+      font-weight: 300;
+    }
+
+    .section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .section ul li::before {
+      content: "- ";
+      color: #555;
+    }
+
+    .section ul li {
+      margin-bottom: 6px;
+    }
+
+    /* ── Before/After ── */
+    .comparison {
+      margin-top: 32px;
+      border: 1px solid #1a1a1a;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .comparison-header {
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 12px 16px;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .comparison-prompt {
+      background: #111;
+      padding: 16px;
+      font-size: 0.78rem;
+      color: #888;
+      border-bottom: 1px solid #1a1a1a;
+      font-style: italic;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 600px) {
+      .comparison-grid { grid-template-columns: 1fr; }
+    }
+
+    .comparison-col {
+      padding: 16px;
+      font-size: 0.75rem;
+      line-height: 1.8;
+      color: #999;
+    }
+
+    .comparison-col:first-child {
+      border-right: 1px solid #1a1a1a;
+    }
+
+    @media (max-width: 600px) {
+      .comparison-col:first-child {
+        border-right: none;
+        border-bottom: 1px solid #1a1a1a;
+      }
+    }
+
+    .comparison-col .label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .comparison-col.after { color: #c8e6c9; }
+    .comparison-col.after .label { color: #66bb6a; }
+
+    /* ── Blog ── */
+    .blog-post { margin-bottom: 56px; }
+
+    .blog-post .date {
+      font-size: 0.75rem;
+      color: #444;
+      margin-bottom: 8px;
+    }
+
+    .blog-post h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .blog-post p {
+      font-size: 0.82rem;
+      color: #b0b0b0;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+
+    .blog-post h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #ccc;
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+
+    .blog-post code {
+      background: #151515;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 0.78rem;
+      color: #d4a;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      margin: 48px 0;
+    }
+
+    /* ── Table ── */
+    .info-table {
+      width: 100%;
+      font-size: 0.78rem;
+      margin: 16px 0;
+      border-collapse: collapse;
+    }
+
+    .info-table td {
+      padding: 8px 0;
+      border-bottom: 1px solid #141414;
+      vertical-align: top;
+    }
+
+    .info-table td:first-child {
+      color: #666;
+      width: 180px;
+      font-weight: 400;
+    }
+
+    .info-table td:last-child {
+      color: #b0b0b0;
+      font-weight: 300;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid #1a1a1a;
+      font-size: 0.75rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header">
+      <h1>architectLLM</h1>
+      <p>gpt-oss-20b fine-tuned for system design</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" data-tab="overview">Overview</button>
+      <button class="tab" data-tab="blog">Blog</button>
+    </div>
+
+    <!-- ════════════════ OVERVIEW ════════════════ -->
+    <div id="overview" class="content active">
+
+      <a href="https://huggingface.co/bisratz/architectLLM-lora" target="_blank" class="hf-link">
+        View on HuggingFace &rarr;
+      </a>
+
+      <div class="section">
+        <h2>What is this?</h2>
+        <p>
+          architectLLM is a LoRA fine-tune of OpenAI's GPT-OSS 20B, trained specifically on
+          system design and software architecture reasoning. The training data covers the kinds of
+          problems you encounter when building and scaling real production systems: designing rate
+          limiters, building distributed caches, choosing between consistency and availability, sizing
+          infrastructure, and reasoning through trade-offs that don't have clean textbook answers.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>Training details</h2>
+        <table class="info-table">
+          <tr><td>Base model</td><td>openai/gpt-oss-20b</td></tr>
+          <tr><td>Method</td><td>LoRA (r=64, alpha=64)</td></tr>
+          <tr><td>Precision</td><td>bfloat16 (native, no quantization)</td></tr>
+          <tr><td>Learning rate</td><td>2e-4, cosine schedule</td></tr>
+          <tr><td>Sequence length</td><td>2048 tokens</td></tr>
+          <tr><td>Framework</td><td>HuggingFace transformers + PEFT + TRL</td></tr>
+          <tr><td>Hardware</td><td>A100 80GB (Google Colab Pro)</td></tr>
+          <tr><td>Training data</td><td>1,787 system design conversations with reasoning</td></tr>
+        </table>
+      </div>
+
+      <div class="section">
+        <h2>What it's trained on</h2>
+        <p>
+          The training set focuses on common system design interview problems and real-world scaling
+          challenges. Each example includes structured reasoning: the model learns to identify the
+          right infrastructure primitives, analyze constraints like latency, throughput, and
+          consistency, perform back-of-envelope calculations, and explain trade-offs explicitly rather
+          than just listing technologies.
+        </p>
+        <p style="margin-top: 12px;">Topics include:</p>
+        <ul style="margin-top: 8px;">
+          <li>Rate limiting and API gateway design</li>
+          <li>Distributed caching strategies</li>
+          <li>Message queues and async processing</li>
+          <li>Database sharding and replication</li>
+          <li>Load balancing and service discovery</li>
+          <li>Consistency models and conflict resolution</li>
+          <li>Back-of-envelope infrastructure sizing</li>
+        </ul>
+      </div>
+
+      <!-- Before / After -->
+      <div class="comparison">
+        <div class="comparison-header">Example: Rate Limiting</div>
+        <div class="comparison-prompt">
+          "Design a rate limiting system for an API gateway handling 500,000 requests
+          per second across 200 microservices."
+        </div>
+        <div class="comparison-grid">
+          <div class="comparison-col">
+            <div class="label">Base model</div>
+            A rate limiter controls how many requests a user can make. You can use a
+            token bucket or sliding window algorithm. Store counters in Redis. Set limits
+            per user. Return 429 when exceeded. Use middleware to check limits before
+            processing requests.
+            <br /><br />
+            <em style="color:#555;">Shallow. Lists components but doesn't reason about
+            the constraints: 500K RPS, 200 services, distributed coordination,
+            clock skew, or failure modes.</em>
+          </div>
+          <div class="comparison-col after">
+            <div class="label">architectLLM</div>
+            At 500K RPS across 200 services, the core constraint is coordination latency.
+            A centralized Redis counter adds ~1ms per request, meaning 500K RPS needs ~500
+            concurrent connections just for rate checks. Two-tier approach: local token
+            buckets per service instance (refilled via async sync with a global ledger)
+            handle the hot path with zero network calls. Global Redis counters are the
+            source of truth, synced every 500ms. Trade-off: you accept up to 0.5s of
+            over-admission during sync gaps. For 200 services at ~10 instances each,
+            that's 2,000 local buckets syncing with ~50 Redis shards. Back-of-envelope:
+            2,000 syncs * 2/sec = 4,000 Redis ops/sec for coordination, well within
+            capacity.
+            <br /><br />
+            <em style="color:#4a8;">Reasons through constraints, calculates sizing,
+            names the trade-off explicitly.</em>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ════════════════ BLOG ════════════════ -->
+    <div id="blog" class="content">
+
+      <div class="blog-post">
+        <div class="date">March 2026</div>
+        <h2>Learnings from fine-tuning GPT-OSS 20B</h2>
+
+        <p>
+          I fine-tuned OpenAI's GPT-OSS 20B to be better at system design reasoning. It took
+          three attempts. Two of them failed. Here's what I learned.
+        </p>
+
+        <h3>Attempt 1: The Unsloth template</h3>
+        <p>
+          My first approach was the path of least resistance: Unsloth's pre-built notebook for
+          GPT-OSS fine-tuning. Unsloth is a popular framework that promises 2x faster training
+          and lower memory usage. The notebook ran on a free T4 GPU (16GB VRAM), which meant
+          everything had to be aggressively compressed to fit.
+        </p>
+        <p>
+          The model loaded in 4-bit quantization, which crushes the precision of every weight in
+          the network. Think of it like saving a high-resolution photo as a tiny, heavily compressed
+          JPEG. The LoRA rank was set to just 8, meaning the "adapter" that learns the new skill
+          had almost no capacity. And the sequence length was capped at 1,024 tokens, which meant
+          the model never saw a complete system design answer during training. Every example was
+          truncated mid-thought.
+        </p>
+        <p>
+          The worst part came at the end. The notebook merged the LoRA weights back into the
+          quantized base model and then saved the result as 16-bit. Going from 4-bit to 16-bit
+          doesn't restore the lost precision. It just makes a bigger file that's still blurry. The
+          merge step introduced numerical errors on top of already-degraded weights.
+        </p>
+        <p>
+          The result: a model that gave generic, surface-level answers. It would list components
+          like "use Redis for caching" without reasoning about why, what the trade-offs are, or
+          how to size things. Worse than useless for system design, where the reasoning is the
+          whole point.
+        </p>
+
+        <h3>Attempt 2: Pure HuggingFace (with bugs)</h3>
+        <p>
+          Someone recommended I try a different notebook that used the standard HuggingFace stack
+          (transformers, PEFT, TRL) instead of Unsloth. The approach was smarter in theory: higher
+          LoRA rank (r=64), longer context, bfloat16 precision.
+        </p>
+        <p>
+          But the code was riddled with bugs. The tokenizer's <code>apply_chat_template</code> was
+          called incorrectly, returning a dictionary when the code expected a tensor. The training
+          crashed with an Arrow serialization error because the trainer couldn't handle the nested
+          JSON structure of the chat messages. The save step used a parameter
+          (<code>safe_serialization</code>) that PEFT models don't support. And the merge step
+          tried to create a full copy of the 20B model in GPU memory that was already full.
+        </p>
+        <p>
+          The weights that did get pushed to HuggingFace were corrupted. The merge-from-quantized
+          pipeline had the same fundamental flaw as Attempt 1, plus all the code bugs on top.
+        </p>
+
+        <h3>Attempt 3: From scratch</h3>
+        <p>
+          For the third attempt, I threw away both notebooks and built the training pipeline from
+          scratch using the official OpenAI fine-tuning cookbook as reference. The key decisions:
+        </p>
+        <ul>
+          <li>Load the model in native bfloat16. No quantization at all. Start from a
+              perfect copy of the original weights.</li>
+          <li>Use LoRA with r=64 (8x the capacity of Attempt 1) so the adapter has
+              enough room to learn the patterns of system design reasoning.</li>
+          <li>Set sequence length to 2,048 tokens so the model sees full answers,
+              not truncated ones.</li>
+          <li>Pre-format the dataset to plain text before passing it to the trainer,
+              completely avoiding the Arrow JSON serialization issue.</li>
+          <li>Save only the LoRA adapter (about 100MB), never merge it back into the
+              base model. At inference time, load the original base model and layer the
+              adapter on top. No lossy merge step, no corruption risk.</li>
+          <li>Run on an A100 80GB so there's no need to compromise on quantization
+              or batch size just to fit in memory.</li>
+        </ul>
+
+        <h3>The core lesson</h3>
+        <p>
+          The single most important thing I learned: quantization before training degrades
+          the starting point, and merging after training degrades the endpoint. Both previous
+          attempts did one or both of these things.
+        </p>
+        <p>
+          The fix is conceptually simple. Start clean (full precision), train only the adapter
+          (LoRA), save only the adapter (no merge). The original model is never touched, never
+          compressed, never corrupted. The adapter is a small, clean diff that gets layered on
+          at inference time.
+        </p>
+        <p>
+          Fine-tuning isn't hard. But the gap between "code that runs" and "code that produces
+          good weights" is enormous. Every parameter choice, every data preprocessing step, every
+          save/load decision either preserves or destroys the information your model needs to be
+          useful.
+        </p>
+
+        <h3>Why not Unsloth?</h3>
+        <p>
+          Unsloth is a good tool for what it's designed for: fast, memory-efficient fine-tuning on
+          consumer GPUs. But for a 20B parameter model where output quality matters more than
+          training speed, the compromises it forces (4-bit quantization, aggressive memory tricks,
+          proprietary merge pipeline) work against you. The weights can only be loaded back through
+          Unsloth's own tooling, and the merge-to-16bit path is lossy.
+        </p>
+        <p>
+          Using the standard HuggingFace stack means every component is well-documented, every
+          parameter is inspectable, and the outputs are compatible with any inference framework.
+          When something goes wrong, you can debug it. When something works, you understand why.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">bisratz/architectLLM</div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
