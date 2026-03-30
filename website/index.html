@@ -326,9 +326,9 @@
           <tr><td>Method</td><td>LoRA (r=64, alpha=64)</td></tr>
           <tr><td>Precision</td><td>bfloat16 (native, no quantization)</td></tr>
           <tr><td>Learning rate</td><td>2e-4, cosine schedule</td></tr>
-          <tr><td>Sequence length</td><td>2048 tokens</td></tr>
+          <tr><td>Sequence length</td><td>4096 tokens</td></tr>
           <tr><td>Framework</td><td>HuggingFace transformers + PEFT + TRL</td></tr>
-          <tr><td>Hardware</td><td>A100 80GB (Google Colab Pro)</td></tr>
+          <tr><td>Hardware</td><td>H100 80GB (Google Colab Pro)</td></tr>
           <tr><td>Training data</td><td>1,787 system design conversations with reasoning</td></tr>
         </table>
       </div>
@@ -463,14 +463,14 @@
               perfect copy of the original weights.</li>
           <li>Use LoRA with r=64 (8x the capacity of Attempt 1) so the adapter has
               enough room to learn the patterns of system design reasoning.</li>
-          <li>Set sequence length to 2,048 tokens so the model sees full answers,
+          <li>Set sequence length to 4,096 tokens so the model sees full answers,
               not truncated ones.</li>
           <li>Pre-format the dataset to plain text before passing it to the trainer,
               completely avoiding the Arrow JSON serialization issue.</li>
           <li>Save only the LoRA adapter (about 100MB), never merge it back into the
               base model. At inference time, load the original base model and layer the
               adapter on top. No lossy merge step, no corruption risk.</li>
-          <li>Run on an A100 80GB so there's no need to compromise on quantization
+          <li>Run on an H100 80GB so there's no need to compromise on quantization
               or batch size just to fit in memory.</li>
         </ul>
 
